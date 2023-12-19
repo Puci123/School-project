@@ -1,5 +1,21 @@
 {% extends 'main_app/base.html' %}
 
+{% block css %}
+    <style>
+        #content {
+            margin: 50px;
+        }
+    </style>
+{% endblock %}
+
+
+
 {% block content %}
-    <h1>My Base Site!</h1>
+    <h1>Welcome To GamesPortal!</h1>
+
+    {% if user.is_authenticated %}
+        <h4>Hi {{ user.username }}!</h4>
+    {% else %}
+        <p>You are not logged in</p>
+    {% endif %}
 {% endblock %}

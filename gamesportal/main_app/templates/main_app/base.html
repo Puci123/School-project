@@ -26,10 +26,11 @@
       .menu a {
         float: left;
         color: #f2f2f2;
-        text-align: center;
         padding: 14px 16px;
         text-decoration: none;
         font-size: 17px;
+        width: 10%;
+        text-align: center;
       }
       
       .menu a:hover {
@@ -50,15 +51,20 @@
   </head>
   <body>
     <div class="menu">
-      <a href="/">Home</a>
+      <a href="/home">Home</a>
       <a href="/search">Search</a>
+      {% if user.is_authenticated %}
+        <a style="float: right;" href="{% url 'logout' %}">Log Out</a>
+      {% else %}
+        <a style="float: right;" href="{% url 'login' %}">Log In</a>
+      {% endif %}
     </div>
 
 
 
     <div id="content", name="content">
-        {% block content %}
-        {% endblock %}
+      {% block content %}
+      {% endblock %}
     </div>
 
     <!-- Optional JavaScript -->

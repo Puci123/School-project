@@ -1,4 +1,6 @@
 from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Field
 from . import models
 
 
@@ -11,3 +13,7 @@ class GameForm(forms.ModelForm):
         fields = ["title", "description", "release_date", "cover_image", "tags"]
     
     tags = forms.ModelMultipleChoiceField(queryset=models.Tag.objects.all(), widget=forms.CheckboxSelectMultiple)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()

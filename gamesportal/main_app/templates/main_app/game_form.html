@@ -1,31 +1,39 @@
 {% extends 'main_app/base.html' %}
 
+{% block css %}
+    <style>
+        #content {
+            margin: 50px;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% load crispy_forms_tags %}
 {% block content %}
+    {% if user.is_superuser %}
+
+
+
     <h2>Add Game</h2>
     
-    <form method="post" action="#" enctype="multipart/form-data">
+    <form method="post" action="#" enctype="multipart/form-data" class="form-group">
         {% csrf_token %}
 
-        <div style="display: flex">
-            Title:&nbsp;
-            <span>
-                {{form.title}}<br/>
-                <span>
-                    {% if exists %}
-                        <p style="color:red"><small>Game already exists on GamesPortal</small></p>
-                    {% else %}
-                    {% endif %}
-                </span>
-            </span>
+        
+        <div class="form-row">
+            <div class="form-group col-md-6 mb-0">
+                {{ form.title|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-2 mb-0">
+                {{ form.release_date|as_crispy_field }}
+            </div>
+            <div class="form-group col-md-4 mb-0">
+                {{ form.cover_image|as_crispy_field  }}
+            </div>
         </div>
-
-        <p>Release Date: {{form.release_date}}</p>
-        
-        <p>Description:</p> {{form.description}}
-        
-        <p>Cover Image: {{form.cover_image}}</p>
-        
-
+        {{ form.description|as_crispy_field  }}
 
         <table class="table table-bordered table-dark">
             <thead>
@@ -44,6 +52,12 @@
 
 
 
-        <button type="submit", name="save" class="btn btn-success">Add To Portal</button>
+        <button type="submit" name="save" class="btn btn-success">Add To Portal</button>
     </form>
+
+
+    
+    {% else %}
+        <p>You are not an admin.</p>
+    {% endif %}
 {% endblock %}

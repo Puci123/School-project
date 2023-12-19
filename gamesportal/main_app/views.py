@@ -8,6 +8,10 @@ from .forms import GameForm
 
 # Create your views here.
 
+def nothing(response):
+    return HttpResponseRedirect(reverse("home"))
+
+
 def home(response):
     return render(response, "main_app/home.html", {})
 
