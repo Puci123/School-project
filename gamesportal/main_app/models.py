@@ -21,7 +21,7 @@ class Game(models.Model):
     description = models.TextField(blank=True)
     release_date = models.DateField()
 
-    cover_image = models.ImageField(upload_to='gamecovers/', blank=True)
+    cover_image = models.ImageField(upload_to='gamecovers/', blank=True, default="gamecovers/No_Cover_Image.png")
 
     tags = models.ManyToManyField(to=Tag, related_name='tagged_games')
 
@@ -30,8 +30,6 @@ class Game(models.Model):
     
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        if not self.cover_image:
-            self.cover_image = "gamecovers/No_Cover_Image.png"
         super(Game, self).save(*args, **kwargs)
 
     
