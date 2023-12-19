@@ -1,0 +1,45 @@
+{% extends 'main_app/base.html' %}
+
+{% block css %}
+    <style>
+        #content {
+            margin: 50px;
+        }
+
+        .gamelink {
+            margin: 20px;
+        }
+
+        .gamelink a {
+            color: black;
+        }
+
+        .gamelink a:hover {
+            color: blue;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+    <h3>Search bar:</h3>
+    <form action="{% url 'search' %}" method="get">
+        <div class="input-group mb-3">
+            <input name="q" type="text" class="form-control" placeholder="Enter your search here." aria-label="Enter your search here." aria-describedby="button-addon2" value="{{ search_str }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="get" id="button-addon2">Search</button>
+            </div>
+        </div>
+    </form>
+    
+    <div  class="gamelink">
+        {% for game in games %}
+            <p><a href="/game/{{game.slug}}">{{ game.title }}</a></p>
+        {% endfor %}
+    </div>
+
+    {% if not games %}
+        <p style="margin: 20px;">Nobody here but chickens</p>
+    {% endif %}
+{% endblock %}

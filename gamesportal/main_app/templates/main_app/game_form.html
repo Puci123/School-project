@@ -1,0 +1,49 @@
+{% extends 'main_app/base.html' %}
+
+{% block content %}
+    <h2>Add Game</h2>
+    
+    <form method="post" action="#" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div style="display: flex">
+            Title:&nbsp;
+            <span>
+                {{form.title}}<br/>
+                <span>
+                    {% if exists %}
+                        <p style="color:red"><small>Game already exists on GamesPortal</small></p>
+                    {% else %}
+                    {% endif %}
+                </span>
+            </span>
+        </div>
+
+        <p>Release Date: {{form.release_date}}</p>
+        
+        <p>Description:</p> {{form.description}}
+        
+        <p>Cover Image: {{form.cover_image}}</p>
+        
+
+
+        <table class="table table-bordered table-dark">
+            <thead>
+                <tr>
+                    <th colspan="6" style="text-align: center">Game Tags</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tag in form.tags %}
+                    {% cycle '<tr>' '' '' '' '' '' %}
+                        <td style="text-align: center">{{tag}}</td>
+                    {% cycle '' '' '' '' '' '</tr>' %}
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+        <button type="submit", name="save" class="btn btn-success">Add To Portal</button>
+    </form>
+{% endblock %}
