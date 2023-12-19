@@ -17,13 +17,31 @@
         .gamelink a:hover {
             color: blue;
         }
+
+        #result {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 5px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        #result_img {
+            display: inline-block;
+            width: 10%;
+        }
+
+        #result_txt {
+            display: inline-block;
+        }
     </style>
 {% endblock %}
 
 
 
 {% block content %}
-    <h3>Search bar:</h3>
+    <h2>Search bar:</h2>
     <form action="{% url 'search' %}" method="get">
         <div class="input-group mb-3">
             <input name="q" type="text" class="form-control" placeholder="Enter your search here." aria-label="Enter your search here." aria-describedby="button-addon2" value="{{ search_str }}">
@@ -35,7 +53,13 @@
     
     <div  class="gamelink">
         {% for game in games %}
-            <p><a href="/game/{{game.slug}}">{{ game.title }}</a></p>
+            <a href="/game/{{game.slug}}">
+                <div id="result">
+                    <div id="result_img"><img src="{{ game.cover_image.url }}" height="100"></div>
+                    <div id="result_txt"><h4>{{ game.title }}</h4></div>
+                </div>
+            </a>
+            <br/><br/>
         {% endfor %}
     </div>
 

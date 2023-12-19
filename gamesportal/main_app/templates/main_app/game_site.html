@@ -15,14 +15,15 @@
             vertical-align: top;
         }
 
-        #g_text {
+        #g_image {
             display: inline-block;
             vertical-align: top;
         }
 
-        #g_image {
+        #g_text {
             display: inline-block;
             vertical-align: top;
+            margin-left: 10px;
         }
     </style>
 {% endblock %}
@@ -32,7 +33,7 @@
 {% block content %}
     <div id="main_container">
         <div id="g_image">
-            <img src="{{ game.cover_image.url }}" height = 600/>
+            <img src="{{ game.cover_image.url }}" height="600"/>
         </div>
         <div id="g_text">
           <h1>{{game.title}}</h1>
