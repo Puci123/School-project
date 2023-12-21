@@ -1,6 +1,10 @@
 from django.db import models
 from django.utils.text import slugify 
 from django.contrib.auth import get_user_model
+
+from django.db.models import IntegerField, Model
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 User = get_user_model()
 
 
@@ -56,7 +60,11 @@ class Review(models.Model):
 
     likes = models.PositiveIntegerField()
     dislikes = models.PositiveIntegerField()
-    score = models.IntegerField()
+    score = models.IntegerField( default=0,
+        validators=[
+            MaxValueValidator(100),
+            MinValueValidator(0)
+        ])
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

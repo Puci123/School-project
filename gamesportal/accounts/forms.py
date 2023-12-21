@@ -11,7 +11,7 @@ from . import models
 class GPUserCreationForm(UserCreationForm):
     class Meta:
         model = models.GPUser
-        fields = ("username", "email", "password1", "password2")
+        fields = ("username", "email", "password1", "password2", "decryption", "profile_picture")
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -21,7 +21,7 @@ class GPUserCreationForm(UserCreationForm):
 class GPUserChangeForm(UserChangeForm):
     class Meta:
         model = models.GPUser
-        fields = ("username", "email")
+        fields = ("username", "email", "decryption","profile_picture")
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

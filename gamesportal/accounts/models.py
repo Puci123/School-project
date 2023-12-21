@@ -8,5 +8,8 @@ from django.db import models
 class GPUser(AbstractUser):
 
 
+    decryption      = models.TextField(default = "", blank = True, null = True)
+    profile_picture = models.ImageField(upload_to='profilepictures/', blank=True,  null= True) 
+
     def __str__(self):
         return self.username

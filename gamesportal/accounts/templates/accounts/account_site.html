@@ -15,6 +15,14 @@
         Welcome to your account, {{ user.username }}.
     </h3>
 
+    <div id="g_image">
+        <img src="{{ user.profile_picture.url }}" height="600"/>
+    </div>
+
+    <p>
+        {{user.decryption}}
+    </p>
+
     <a href="{% url 'game lists' %}">My game lists.</a>
 
 {% endblock %}
