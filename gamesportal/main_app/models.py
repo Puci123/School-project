@@ -35,6 +35,7 @@ class Game(models.Model):
     
 class GameList(models.Model):
     title = models.CharField(max_length=200)
+    slug = models.SlugField(default="")
     description = models.TextField(blank=True)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,6 +44,10 @@ class GameList(models.Model):
 
     def __str__(self):
         return self.title
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(GameList, self).save(*args, **kwargs)
 
 
 class Review(models.Model):

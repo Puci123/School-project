@@ -12,6 +12,7 @@ class GameAdmin(admin.ModelAdmin):
 
 class GameListAdmin(admin.ModelAdmin):
     list_display = ("title", "user",)
+    prepopulated_fields = {"slug": ("title",)}
 
 
 class ReviewAdmin(admin.ModelAdmin):

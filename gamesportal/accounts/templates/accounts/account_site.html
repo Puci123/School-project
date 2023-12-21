@@ -11,5 +11,10 @@
 
 
 {% block content %}
-    <h1>Welcome To GamesPortal!</h1>
+    <h3>
+        Welcome to your account, {{ user.username }}.
+    </h3>
+
+    <a href="{% url 'game lists' %}">My game lists.</a>
+
 {% endblock %}

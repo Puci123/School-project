@@ -1,0 +1,70 @@
+{% extends 'main_app/base.html' %}
+
+{% block css %}
+    <style>
+        #content {
+            margin: 50px;
+            position: relative;
+        }
+
+        .listlink {
+            margin: 20px;
+        }
+
+        .listlink a {
+            color: black;
+        }
+
+        .listlink a:hover {
+            color: blue;
+        }
+
+        #result {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 5px;
+            display: inline-block;
+        }
+
+        #result_del {
+            display: inline-block;
+        }
+
+        #result_lst {
+            display: inline-block;
+            text-align: left;
+            padding-left: 20px;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+    <h3>My game lists:</h3>
+
+    <a style="position: absolute; right: 0;" role="button" class="btn btn-success" href="addlist/">Add New List</a>
+
+    <form method="post" action="#" class="form-group">
+        {% csrf_token %}
+
+        <div class="listlink">
+            <ul>
+                {% for list in game_lists %}
+                    <div id="result">
+                        <div id="result_del"><button class="btn btn-danger" type="submit" name="del_list" value="{{ list.id }}">Delete</button></div>
+                        <a href="{{ list.slug }}">
+                            <div id="result_lst"><li><h5>{{ list.title }}</h5></li></div>
+                        </a>
+                    </div>
+                    <br/><br/>
+                {% endfor %}
+            </ul>
+        </div>
+    </form>
+
+    {% if not game_lists %}
+        <p style="margin: 20px;">Nobody here but chickens</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,91 @@
+{% extends 'main_app/base.html' %}
+
+{% block css %}
+    <style>
+        #content {
+            margin: 50px;
+            position: relative;
+        }
+
+        .gamelink {
+            margin: 20px;
+        }
+
+        .gamelink a {
+         color: black;
+        }
+
+        .gamelink a:hover {
+            color: blue;
+        }
+
+        #result {
+            display: grid;
+            align-items: center;
+            grid-template-columns: 1fr 1fr 1fr;
+            column-gap: 5px;
+            display: inline-block;
+        }
+
+        #result_del {
+            display: inline-block;
+            padding-right: 20px;
+        }
+
+        #result_img {
+            display: inline-block;
+            width: 80px;
+            padding-left: 20px;
+        }
+
+        #result_txt {
+            display: inline-block;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+    <div style="padding-left: 160px;">
+        <h3>{{ list.title }}:</h3>
+        <p>{{ list.description }}</p>
+    </div>
+
+    <form method="post" action="#" class="form-group">
+        {% csrf_token %}
+
+        <div style="position: absolute; right: 0;" class="btn-group">
+            <button class="btn btn-info btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Add Game To List
+            </button>
+            <div class="dropdown-menu">
+                {% for game in all_games %}
+                    <button class="dropdown-item" type="submit" name="add_game" value="{{ game.id }}">{{ game.title }}</button>
+                {% endfor %}
+
+                {% if not all_games %}
+                    <a class="dropdown-item" href="#">No more games.</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div  class="gamelink">
+            {% for game in list.games.all %}
+                <div id="result">
+                    <div id="result_del"><button class="btn btn-danger" type="submit" name="del_game" value="{{ game.id }}">Delete</button></div>
+                    <div style="display: inline-block;"><h3>&#8594;</h3></div>
+                    <a href="/game/{{game.slug}}">
+                        <div id="result_img"><img src="{{ game.cover_image.url }}" height="60"></div>
+                        <div id="result_txt"><h5>{{ game.title }}</h5></div>
+                    </a>
+                </div>
+                <br/><br/>
+            {% endfor %}
+        </div>
+    </form>
+
+    {% if not list %}
+        <p style="margin: 20px;">Nobody here but chickens</p>
+    {% endif %}
+{% endblock %}

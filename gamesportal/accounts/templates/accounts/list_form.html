@@ -1,0 +1,28 @@
+{% extends 'main_app/base.html' %}
+
+{% block css %}
+    <style>
+        #content {
+            margin: 50px;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% load crispy_forms_tags %}
+{% block content %}
+    <h2>Add List:</h2>
+    
+    <form method="post" action="#" class="form-group">
+        {% csrf_token %}
+
+        {% if exists %}
+            <h3 style="color: red;">You allready have a list with this name.</h3>
+        {% endif %}
+
+        {{ form|crispy }}
+
+        <button type="submit" name="add" class="btn btn-success">Add New List</button>
+    </form>
+{% endblock %}

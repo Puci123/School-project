@@ -12,16 +12,15 @@
 
 {% load crispy_forms_tags %}
 {% block content %}
-    {% if user.is_superuser %}
-
-
-
     <h2>Add Game</h2>
     
     <form method="post" action="#" enctype="multipart/form-data" class="form-group">
         {% csrf_token %}
 
-        
+        {% if exists %}
+            <h3 style="color: red;">Game with this name allready exists on GamesPortal.</h3>
+        {% endif %}
+
         <div class="form-row">
             <div class="form-group col-md-6 mb-0">
                 {{ form.title|as_crispy_field }}
@@ -54,10 +53,4 @@
 
         <button type="submit" name="save" class="btn btn-success">Add To Portal</button>
     </form>
-
-
-    
-    {% else %}
-        <p>You are not an admin.</p>
-    {% endif %}
 {% endblock %}
