@@ -1,0 +1,50 @@
+{% extends 'main_app/base.html' %}
+
+{% block css %}
+    <style>
+        #content {
+            margin: 50px;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+    <h3>Reviews of {{game.title}}</h3>
+    <br/><br/>
+
+
+    {% if user.is_authenticated %}
+        {% if not curr_rev %}
+            <a role="button" class="btn btn-success" href="writereview/">Write A Review</a>
+        {% else %}
+            <p>Your review:</p>
+            <div id="comment_block">
+                <span><i>By {{user.username}}</i> : {{curr_rev.created_at}}</span>
+                <h5>Score: {{curr_rev.score}}</h5>
+                <p>{{curr_rev.body}}</p>
+                <span>| Likes: {{curr_rev.likes}} | - | Dislikes: {{curr_rev.dislikes}} |</span>
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <br/>--------------------------------------------------------<br/><br/><br/>
+
+    {% for review in reviews %}
+        {% if review.user != user %}
+            <div id="comment_block">
+                <span><i>By {{review.user.username}}</i> : {{review.created_at}}</span>
+                <h5>Score: {{review.score}}</h5>
+                <p>{{review.body}}</p>
+                <span>| Likes: {{review.likes}} | - | Dislikes: {{review.dislikes}} |</span>
+            </div>
+            <br/><br/>
+        {% endif %}
+    {% endfor %}
+
+
+    {% if not reviews %}
+        <p style="margin: 20px;">Nobody here but chickens</p>
+    {% endif %}
+{% endblock %}

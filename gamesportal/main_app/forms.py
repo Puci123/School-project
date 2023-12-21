@@ -28,3 +28,14 @@ class GameListForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
+
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = models.Review
+        fields = ["body", "score"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()

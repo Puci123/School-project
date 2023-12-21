@@ -52,7 +52,7 @@ class GameList(models.Model):
 
 class Review(models.Model):
     body = models.TextField(blank=True)
-    created_at = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
     likes = models.PositiveIntegerField()
     dislikes = models.PositiveIntegerField()
