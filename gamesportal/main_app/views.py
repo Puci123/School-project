@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Tag, Game, GameList, Review
 from .forms import GameForm, ReviewForm
+from django.db.models import Q
 
 
 
@@ -101,7 +102,10 @@ def write_review(response, g_slug):
 def search(response):
     search_str = response.GET.get("q")
     if search_str:
-        games = Game.objects.filter(title__icontains=search_str)
+        games = Game.objects.filter(Q(title__icontains=search_str) | Q(release_date__icontains=search_str) | Q(tags__name__icontains=search_str))
+       # games_by_title = Game.objects.filter(title__icontains=search_str)
+       # games_by_date  = Game.objects.filter(release_date__icontains=search_str)
+       # games = games_by_title + games_by_date;
     else:
         search_str = ""
         games = Game.objects.all()
