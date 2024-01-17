@@ -3,10 +3,12 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic.edit import CreateView
 from django.contrib.auth import logout
-from .forms import GPUserCreationForm, GPUserChangeForm
+from .forms import GPUserCreationForm, GPUserChangeForm, UserProfileForm, PasswordChangeForm
 from main_app.models import GameList, Game
 from main_app.forms import GameListForm
-
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
@@ -88,3 +90,28 @@ def list_form(response):
         return render(response, "accounts/list_form.html", {"form": form, "exists": exists})
     else:
         return HttpResponseRedirect(reverse("login"))
+    
+
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm (request.POST, request.FILES,instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('account site')  # Redirect to the user's profile page
+    else:
+        form = UserProfileForm(instance=request.user)
+    return render(request, 'accounts/account_edit.html', {'form': form})
+
+@login_required
+def change_password(request):
+    password_form = PasswordChangeForm(request.user)
+
+    if request.method == 'POST':
+        password_form = PasswordChangeForm(request.user, request.POST)
+        if password_form.is_valid():
+            user = password_form.save()
+            update_session_auth_hash(request, user)     # Keep the user logged in
+            return redirect('account site')                  # Redirect to the user's profile page
+
+    return render(request, 'accounts/change_password.html', {'password_form': password_form})
+

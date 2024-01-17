@@ -36,8 +36,12 @@
             <div id="comment_block">
                 <span><i>By {{review.user.username}}</i> : {{review.created_at}}</span>
                 <h5>Score: {{review.score}}</h5>
-                <p>{{review.body}}</p>
-                <span>| Likes: {{review.likes}} | - | Dislikes: {{review.dislikes}} |</span>
+                <p>{{review.body}}</p>    
+                <form method=POST>
+                {% csrf_token %}
+                <button class="btn-success" name="like",    value="l{{review.id}}">Likes: {{review.likes}}</button>
+                <button class="btn-danger"  name="like",    value="d{{review.id}}">Dislikes: {{review.dislikes}}</button>
+                </form>
             </div>
             <br/><br/>
         {% endif %}

@@ -48,6 +48,23 @@ def review_site(request, g_slug):
     if request.user.is_authenticated:
         curr_rev = reviews.filter(user=request.user)
         if curr_rev: curr_rev = curr_rev[0]
+
+        if(request.method == 'POST'): 
+            action = request.POST['like']
+            crr_reviewiew = reviews[0]
+         
+
+            if(action[0] == 'l'):
+                temp = int(action[1:])
+                crr_reviewiew = Review.objects.get(id = temp)
+                crr_reviewiew.likes += 1
+            elif(action[0] == 'd'):
+                temp = int(action[1:])
+                crr_reviewiew = Review.objects.get(id = temp)
+                crr_reviewiew.dislikes += 1
+            
+            crr_reviewiew.save()
+
     else:
         curr_rev = None
 

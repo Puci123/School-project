@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field
 from . import models
@@ -17,7 +17,6 @@ class GPUserCreationForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
 
-
 class GPUserChangeForm(UserChangeForm):
     class Meta:
         model = models.GPUser
@@ -26,3 +25,14 @@ class GPUserChangeForm(UserChangeForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.helper = FormHelper()
+
+
+class UserProfileForm(UserChangeForm):
+    class Meta:
+        model = models.GPUser
+        fields = ('decryption', 'password', 'profile_picture', 'email')
+
+
+class UserPasswordChangeForm(PasswordChangeForm):
+    #fields = ('password')
+    pass

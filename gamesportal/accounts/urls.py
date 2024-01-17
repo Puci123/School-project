@@ -1,4 +1,5 @@
 from django.urls import path
+
 from . import views
 
 urlpatterns = [
@@ -8,4 +9,6 @@ urlpatterns = [
     path("mysite/mylists/", views.game_lists_site, name="game lists"),
     path("mysite/mylists/addlist/", views.list_form, name="add list"),
     path("mysite/mylists/<slug:gl_slug>/", views.game_list, name="game list"),
+    path('edit_profile/', views.edit_profile, name='edit_profile'),
+    path('accounts/mysite/change_password/', views.change_password, name='change_password')
 ]

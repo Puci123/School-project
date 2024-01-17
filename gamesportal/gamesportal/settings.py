@@ -81,9 +81,9 @@ WSGI_APPLICATION = 'gamesportal.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'gamesportal_db',
-        'USER': 'alex',
-        'PASSWORD': 'A_p@ss#2202',
+        'NAME': 'games',
+        'USER': 'root',
+        'PASSWORD': 'toor',
         'HOST': 'localhost',
         'PORT': '3306',
     }
